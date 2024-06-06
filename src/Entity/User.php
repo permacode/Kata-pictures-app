@@ -43,7 +43,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Stringa
     #[ORM\Column(length: 255 , nullable:true)]
     private ?string $lastname = null;
 
-     /**
+    /**
      * @var Collection<int, Picture>
      */
     #[ORM\OneToMany(targetEntity: Picture::class, mappedBy: 'user', orphanRemoval: true)]
