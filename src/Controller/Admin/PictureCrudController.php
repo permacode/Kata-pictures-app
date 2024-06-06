@@ -26,7 +26,8 @@ class PictureCrudController extends AbstractCrudController
             IdField::new('id')
                 ->hideOnForm(),
             TextField::new('filename'),
-            TextEditorField::new('description'),
+            TextEditorField::new('description')
+                ->setFormType("TextType"),
             ImageField::new('filename', 'description')
                 ->hideOnForm(),
             AssociationField::new('user'),

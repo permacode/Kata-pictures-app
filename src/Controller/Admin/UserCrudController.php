@@ -6,6 +6,7 @@ use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -22,8 +23,13 @@ class UserCrudController extends AbstractCrudController
         return [
             IdField::new('id')
                 ->hideOnForm(),
-            TextField::new('title'),
-            TextEditorField::new('description'),
+            TextField::new('email'),
+            TextField::new('firstname'),
+            TextField::new('lastName'),
+            ArrayField::new('roles'),
+            TextField::new('password')
+                ->setFormType("PasswordType")
+                ->hideOnIndex(),
         ];
     }
 
@@ -31,7 +37,13 @@ class UserCrudController extends AbstractCrudController
     {
         return $crud
             ->setEntityLabelInPlural('Users')
-            ->setEntityLabelInSingular('User');
+            ->setEntityLabelInSingular('User')
+            ->setSearchFields([
+                'firstname',
+                'lastname',
+                'email',
+            ])
+            ->setDefaultSort(['user' => 'ASC']);
     }
 
     public function configureFilters(Filters $filters): Filters
