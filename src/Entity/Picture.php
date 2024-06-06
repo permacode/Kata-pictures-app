@@ -4,9 +4,10 @@ namespace App\Entity;
 
 use App\Repository\PictureRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Stringable;
 
 #[ORM\Entity(repositoryClass: PictureRepository::class)]
-class Picture
+class Picture implements Stringable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -77,5 +78,10 @@ class Picture
         $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->fileName;
     }
 }
