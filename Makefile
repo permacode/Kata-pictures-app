@@ -9,7 +9,7 @@ down:
 push: #call it with push message="my message"
 	git add .
 	git commit -m "${message}"
-	git rebase origin main
-	git push force-with-leave
+	git pull --rebase origin main
+	git push --force-with-leave
 
 .PHONY: push
