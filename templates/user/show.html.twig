@@ -1,17 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User{% endblock %}
+{% block title %}
+	User
+{% endblock %}
 
 {% block body %}
-    <h1>{{user}}'s page</h1>
+	<h1>
+		{{user}}
+		's page
+	</h1>
 
-    {% for picture in user.pictures %}
-        <div class="d-flex">
-        
-        </div>
-    {% endfor %}
+	<div class="d-flex">
+		{% for picture in user.pictures %}
+			<div>
+				<img href="{{picture.filename}}"/>
+			</div>
+		{% endfor %}
+	</div>
 
-    
 
-    <a href="{{ path('app_user_edit', {'id': user.id}) }}">Edit Your Profile</a>
+	<a href="{{ path('app_user_edit', {'id': user.id}) }}">
+		Edit Your Profile
+	</a>
 {% endblock %}
