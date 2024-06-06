@@ -14,6 +14,7 @@ class DashboardController extends AbstractDashboardController
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
+<<<<<<< HEAD
         return parent::index();
         // $routeBuilder = $this->container->get(AdminUrlGenerator::class);
         // In line below, replace [EntityHere] by the entity you want to see on the site when clicking on
@@ -22,6 +23,15 @@ class DashboardController extends AbstractDashboardController
         // $url = $routeBuilder->setController(User::class)->generateUrl();
 
         // return $this->redirect($url);
+=======
+        $routeBuilder = $this->container->get(AdminUrlGenerator::class);
+        // In line below, replace [EntityHere] by the entity you want to see on the site when clicking on
+        // "back to the website" from Admin Dashboard
+
+        // $url = $routeBuilder->setController([EntityHere]::class)->generateUrl();
+
+        return $this->redirect($url);
+>>>>>>> 9500b51 (preconfiguring admin dashboard)
     }
 
     public function configureDashboard(): Dashboard
