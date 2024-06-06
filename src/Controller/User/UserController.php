@@ -38,7 +38,7 @@ class UserController extends AbstractController
             ]);
         } else {
             //TODO: modify this to put a route name
-            $this->redirectToRoute('/');
+            $this->redirectToRoute('');
         }
     }
 
