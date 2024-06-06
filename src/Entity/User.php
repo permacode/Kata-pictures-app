@@ -6,12 +6,14 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
-#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_Email', fields: ['email'])]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -34,25 +36,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255 , nullable:true)]
     private ?string $firstname = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255 , nullable:true)]
     private ?string $lastname = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $mail = null;
-
-    /**
+     /**
      * @var Collection<int, Picture>
      */
     #[ORM\OneToMany(targetEntity: Picture::class, mappedBy: 'user', orphanRemoval: true)]
     private Collection $pictures;
 
-    public function __construct()
-    {
-        $this->pictures = new ArrayCollection();
-    }
+
+
+    #[ORM\Column]
+    private bool $isVerified = false;
 
     public function getId(): ?int
     {
@@ -153,14 +152,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getMail(): ?string
+
+    public function isVerified(): bool
     {
-        return $this->mail;
+        return $this->isVerified;
     }
 
-    public function setMail(string $mail): static
+    public function setVerified(bool $isVerified): static
     {
-        $this->mail = $mail;
+        $this->isVerified = $isVerified;
 
         return $this;
     }
