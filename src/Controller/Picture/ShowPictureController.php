@@ -15,11 +15,13 @@ class ShowPictureController extends AbstractPictureController
     public function show(Picture $picture): Response
     {
         $user = $this->takeUser();
+        $updatedAt = null !== $picture->getUpdatedAt() ? $picture->getUpdatedAt()->format('d-m-Y H:i') : null;
+
         return $this->render('picture/show.html.twig', [
             'picture' => $picture,
             'user' => $user,
             'createdAt' => $picture->getCreatedAt()->format('d-m-Y H:i'),
-            'updatedAt' => $picture->getUpdatedAt()->format('d-m-Y H:i')
+            'updatedAt' => $updatedAt
         ]);
     }
 }
