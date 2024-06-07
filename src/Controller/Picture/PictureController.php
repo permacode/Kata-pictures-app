@@ -35,6 +35,7 @@ class PictureController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user->addPicture($picture);
+            //TODO: add a request to ChatGPT
             $entityManager->persist($picture);
             $entityManager->persist($user);
             $entityManager->flush();
@@ -67,6 +68,7 @@ class PictureController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //TODO: add a request to ChatGPT
             $entityManager->flush();
 
             return $this->redirectToRoute('app_picture_index', [], Response::HTTP_SEE_OTHER);
@@ -87,6 +89,6 @@ class PictureController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_picture_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_user_show', [], Response::HTTP_SEE_OTHER);
     }
 }

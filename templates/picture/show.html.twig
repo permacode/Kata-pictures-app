@@ -5,7 +5,9 @@
 {% block body %}
     <h1>Picture</h1>
 
-    <a href="{{ path('app_user_show') }}">back to list</a>
+    <img src="{{picture.filename}}" alt="myPicture" />
+
+    <a href="{{ path('app_user_show') }}">Back to profile</a>
 
     <a href="{{ path('app_picture_edit', {'id': picture.id}) }}">edit</a>
 
