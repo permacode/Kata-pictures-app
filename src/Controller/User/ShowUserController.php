@@ -3,6 +3,7 @@
 namespace App\Controller\User;
 
 use App\Entity\User;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -13,7 +14,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class ShowUserController extends AbstractController
 {
     #[Route('/', name: 'app_user_show', methods: ['GET'])]
-    public function show(): Response
+    public function show(UserRepository $repo): Response
     {
         /** @var User $user */
         $user = $this->getUser();
