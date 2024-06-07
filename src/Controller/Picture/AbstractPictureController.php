@@ -24,7 +24,6 @@ class AbstractPictureController extends AbstractController
 
     protected function sendMailWhenPictureAdded(User $user, Picture $picture): void
     {
-        dump('Mail send in progress...');
         $this->mailer->send((new NotificationEmail())
                 ->subject('New picture posted')
                 ->htmlTemplate('emails/picture_notification.html.twig')
@@ -36,6 +35,5 @@ class AbstractPictureController extends AbstractController
                     'picture' => $picture
                 ])
         );
-        dump($this->mailer);
     }
 }
