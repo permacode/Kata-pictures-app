@@ -6,6 +6,13 @@
     <h1>Picture</h1>
 
     <img src="{{picture.filename}}" alt="myPicture" />
+    <div>
+        <p>Added by {{user}}</p>
+        <p>At {{createdAt}}</p>
+        {% if picture.updatedAt is not null %}
+            <p>updated at {{updatedAt}}</p>
+        {% endif %}
+    </div>
 
     <a href="{{ path('app_user_show') }}">Back to profile</a>
 
