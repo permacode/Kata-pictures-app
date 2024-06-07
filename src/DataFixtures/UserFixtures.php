@@ -15,8 +15,7 @@ class UserFixtures extends Fixture
 
     public function __construct(
         private UserPasswordHasherInterface $hasher
-    )
-    {
+    ) {
         $this->faker = Factory::create('fr_FR');
     }
 
@@ -29,31 +28,29 @@ class UserFixtures extends Fixture
                 $this->hasher->hashPassword($user, 'password')
             )
             ->setFirstname('User')
-            ->setLastname('Testeur')
-            ;
+            ->setLastname('Testeur');
         $manager->persist($user);
-        
+
         //admin
         $admin = new User;
         $admin->setEmail('admin@email.com')
-                ->setPassword(
-                    $this->hasher->hashPassword($admin, 'password')
-                )
-                ->setRoles(['ROLE_USER', 'ROLE_ADMIN'])
-                ->setFirstname('Admin')
-                ->setLastname('Admin')
-                ;
+            ->setPassword(
+                $this->hasher->hashPassword($admin, 'password')
+            )
+            ->setRoles(['ROLE_USER', 'ROLE_ADMIN'])
+            ->setFirstname('Admin')
+            ->setLastname('Admin');
         $manager->persist($admin);
 
         //other users
-        for($i=0; $i < 400; $i++) 
-        { 
+        for ($i = 0; $i < 400; $i++) {
             $user = (new User)
-                    ->setEmail($this->faker->email())
-                    ->setPassword('password')
-                    ->setFirstname($this->faker->firstName())
-                    ->setLastname($this->faker->lastName())
-                    ;
+                ->setEmail($this->faker->email())
+                ->setPassword(
+                    $this->hasher->hashPassword($user, 'password')
+                )
+                ->setFirstname($this->faker->firstName())
+                ->setLastname($this->faker->lastName());
 
             $manager->persist($user);
         }
