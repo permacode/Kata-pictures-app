@@ -15,6 +15,6 @@ Email: {{user.email}} <br>
 
 {% block action %}
   <spacer size="16"></spacer>
-  <button href="{{ url('app_picture_delete', { id: comment.id }) }}">Delete it</button>
-  <button href="{{ url('app_picture_edit', { id: comment.id, reject: true }) }}">Edit it</button>
+  <button type="submit">Delete it</button>
+  <button href="{{ url('app_picture_edit', { id: picture.id }) }}">Edit it</button>
 {% endblock %}

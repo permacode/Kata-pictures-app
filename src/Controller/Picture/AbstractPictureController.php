@@ -10,10 +10,11 @@ use Symfony\Component\Mailer\MailerInterface;
 
 class AbstractPictureController extends AbstractController
 {
-    
-    public function __construct(private MailerInterface $mailer) {
+
+    public function __construct(private MailerInterface $mailer)
+    {
     }
-    
+
     protected function takeUser(): User
     {
         /** @var User $user */
@@ -23,16 +24,18 @@ class AbstractPictureController extends AbstractController
 
     protected function sendMailWhenPictureAdded(User $user, Picture $picture): void
     {
+        dump('Mail send in progress...');
         $this->mailer->send((new NotificationEmail())
                 ->subject('New picture posted')
                 ->htmlTemplate('emails/picture_notification.html.twig')
                 // TODO: delete those lines if not necessary
                 // ->from($this->adminEmail)
-                // ->to($this->adminEmail)
+                ->to($user->getEmail())
                 ->context([
                     'user' => $user,
                     'picture' => $picture
                 ])
         );
+        dump($this->mailer);
     }
 }

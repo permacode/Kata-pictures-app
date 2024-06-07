@@ -4,7 +4,6 @@ namespace App\Controller\Picture;
 
 use App\Entity\Picture;
 use App\Form\PictureType;
-use App\Service\UserMailer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
