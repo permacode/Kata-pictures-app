@@ -14,7 +14,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class ShowUserController extends AbstractController
 {
     #[Route('/', name: 'app_user_show', methods: ['GET'])]
-    public function show(UserRepository $repo): Response
+    public function index(UserRepository $repo): Response
     {
         /** @var User $user */
         $user = $this->getUser();

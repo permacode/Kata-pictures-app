@@ -3,6 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Picture;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -25,10 +27,10 @@ class PictureCrudController extends AbstractCrudController
         return [
             IdField::new('id')
                 ->hideOnForm(),
-            TextField::new('filename'),
+            TextField::new('fileName'),
             TextEditorField::new('description')
                 ->setFormType("TextType"),
-            ImageField::new('filename', 'description')
+            ImageField::new('fileName', 'description')
                 ->hideOnForm(),
             AssociationField::new('user'),
             DateField::new('createdAt')
@@ -43,12 +45,19 @@ class PictureCrudController extends AbstractCrudController
         return $crud
             ->setEntityLabelInPlural('Pictures')
             ->setEntityLabelInSingular('Picture')
-            ->setSearchFields(['user', 'filename'])
+            ->setSearchFields(['user', 'fileName'])
             ->setDefaultSort(['user' => 'ASC']);
     }
     public function configureFilters(Filters $filters): Filters
     {
         return $filters
-            ->add('filename');
+            ->add('fileName');
+    }
+    
+    public function configureActions(Actions $actions): Actions
+    {
+        return parent::configureActions($actions)
+             ->add(Crud::PAGE_INDEX, Action::DETAIL)
+        ;
     }
 }
