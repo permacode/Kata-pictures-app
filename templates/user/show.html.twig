@@ -13,7 +13,9 @@
 	<div class="d-flex">
 		{% for picture in user.pictures %}
 			<div>
+			<a href="{{ path('app_picture_show', {id:picture.id}) }}">
 				<img src="{{picture.filename}}" alt="my Image"/>
+			</a>
 			</div>
 		{% endfor %}
 	</div>
