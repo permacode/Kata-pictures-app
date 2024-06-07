@@ -1,26 +1,25 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	User
+    User
 {% endblock %}
 
 {% block body %}
-	<h1>
-		{{user}}
-		's page
-	</h1>
+    <h1 class="text-3xl font-bold mb-4">
+        {{ user }}'s page
+    </h1>
 
-	<div class="d-flex">
-		{% for picture in user.pictures %}
-			<div>
-			1 image
-				<img src="{{picture.filename}}" alt="my Image"/>
-			</div>
-		{% endfor %}
-	</div>
+    <div class="flex">
+        {% for picture in user.pictures %}
+            <div class="mr-4">
+                1 image
+                <img src="{{ picture.filename }}" alt="my Image" class="mt-2">
+            </div>
+        {% endfor %}
+    </div>
 
-
-	<a href="{{ path('app_user_edit', {'id': user.id}) }}">
-		Edit Your Profile
-	</a>
+    <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="text-blue-600 hover:underline mt-4 block">
+        Edit Your Profile
+    </a>
 {% endblock %}
+

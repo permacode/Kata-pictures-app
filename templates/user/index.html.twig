@@ -1,45 +1,45 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User index{% endblock %}
+{% block title %}Index{% endblock %}
 
 {% block body %}
-    <h1>User index</h1>
+    <h1 class="text-3xl font-bold mb-4">Index</h1>
 
-    <table class="table">
+    <table class="table-auto w-full">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Email</th>
-                <th>Roles</th>
-                <th>Password</th>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>IsVerified</th>
-                <th>actions</th>
+                <th class="px-4 py-2">Id</th>
+                <th class="px-4 py-2">Email</th>
+                <th class="px-4 py-2">Roles</th>
+                <th class="px-4 py-2">Password</th>
+                <th class="px-4 py-2">Firstname</th>
+                <th class="px-4 py-2">Lastname</th>
+                <th class="px-4 py-2">IsVerified</th>
+                <th class="px-4 py-2">Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for user in users %}
             <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                <td>{{ user.password }}</td>
-                <td>{{ user.firstname }}</td>
-                <td>{{ user.lastname }}</td>
-                <td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
-                <td>
-                    <a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+                <td class="border px-4 py-2">{{ user.id }}</td>
+                <td class="border px-4 py-2">{{ user.email }}</td>
+                <td class="border px-4 py-2">{{ user.roles ? user.roles|json_encode : '' }}</td>
+                <td class="border px-4 py-2">{{ user.password }}</td>
+                <td class="border px-4 py-2">{{ user.firstname }}</td>
+                <td class="border px-4 py-2">{{ user.lastname }}</td>
+                <td class="border px-4 py-2">{{ user.isVerified ? 'Yes' : 'No' }}</td>
+                <td class="border px-4 py-2">
+                    <a href="{{ path('app_user_show', {'id': user.id}) }}" class="text-blue-600 hover:underline">show</a>
+                    <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="text-green-600 hover:underline ml-2">edit</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">no records found</td>
+                <td colspan="8" class="border px-4 py-2">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_user_new') }}">Create new</a>
+    <a href="{{ path('app_user_new') }}" class="block mt-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Create new</a>
 {% endblock %}
