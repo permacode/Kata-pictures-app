@@ -4,6 +4,7 @@ namespace App\Controller\Picture;
 
 use App\Entity\Picture;
 use App\Form\PictureType;
+use App\Service\UserMailer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,11 +13,14 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/picture')]
 #[IsGranted('ROLE_USER')]
-class AddPictureController extends AbstractPictureController 
+class AddPictureController extends AbstractPictureController
 {
+
     #[Route('/add', name: 'app_add_picture', methods: ['GET', 'POST'])]
-    public function add(Request $request, EntityManagerInterface $entityManager): Response
-    {
+    public function add(
+        Request $request,
+        EntityManagerInterface $entityManager,
+    ): Response {
         $user = $this->takeUser();
         $picture = new Picture();
 
@@ -29,6 +33,9 @@ class AddPictureController extends AbstractPictureController
             $entityManager->persist($picture);
             $entityManager->persist($user);
             $entityManager->flush();
+
+            // TODO: Add a mail to warn user
+            $this->sendMailWhenPictureAdded($user, $picture);
 
             return $this->redirectToRoute('app_user_show', [], Response::HTTP_SEE_OTHER);
         }

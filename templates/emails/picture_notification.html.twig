@@ -1,0 +1,20 @@
+{% extends '@email/default/notification/body.html.twig' %}
+
+{% block content %}
+Author: {{user}} via kata-pictures-app <br />
+Email: {{user.email}} <br>
+
+<p>
+    A new picture has been added from your account.
+</p>
+
+<p>
+    Click <a href="{{ path('app_picture_show', {id: picture.id})}}">here</a> to see it.
+</p>
+{% endblock %}
+
+{% block action %}
+  <spacer size="16"></spacer>
+  <button href="{{ url('app_picture_delete', { id: comment.id }) }}">Delete it</button>
+  <button href="{{ url('app_picture_edit', { id: comment.id, reject: true }) }}">Edit it</button>
+{% endblock %}

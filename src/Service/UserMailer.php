@@ -1,27 +1,19 @@
 <?php
 
-namespace App\Controller\Picture;
+namespace App\Service;
 
 use App\Entity\Picture;
 use App\Entity\User;
 use Symfony\Bridge\Twig\Mime\NotificationEmail;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Mailer\MailerInterface;
 
-class AbstractPictureController extends AbstractController
+class UserMailer
 {
-    
-    public function __construct(private MailerInterface $mailer) {
-    }
-    
-    protected function takeUser(): User
-    {
-        /** @var User $user */
-        $user = $this->getUser();
-        return $user;
-    }
+    // #[Autowire('%admin_email%')] private string $adminEmail;
+    private MailerInterface $mailer;
 
-    protected function sendMailWhenPictureAdded(User $user, Picture $picture): void
+    public function sendMailWhenPictureAdded(User $user, Picture $picture): void
     {
         $this->mailer->send((new NotificationEmail())
                 ->subject('New picture posted')
