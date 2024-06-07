@@ -13,7 +13,6 @@
 	<div class="d-flex">
 		{% for picture in user.pictures %}
 			<div>
-			1 image
 				<img src="{{picture.filename}}" alt="my Image"/>
 			</div>
 		{% endfor %}
@@ -22,5 +21,8 @@
 
 	<a href="{{ path('app_user_edit', {'id': user.id}) }}">
 		Edit Your Profile
+	</a>
+	<a href="{{ path('app_add_picture') }}">
+		Add a picture
 	</a>
 {% endblock %}

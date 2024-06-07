@@ -3,10 +3,13 @@
 namespace App\Entity;
 
 use App\Repository\PictureRepository;
+use DateTime;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Stringable;
 
 #[ORM\Entity(repositoryClass: PictureRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Picture implements Stringable
 {
     #[ORM\Id]
@@ -21,11 +24,11 @@ class Picture implements Stringable
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+    #[ORM\Column(nullable:false)]
+    private ?\DateTimeImmutable $createdAt;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $updatedAt = null;
+    #[ORM\Column(nullable:true)]
+    private ?\DateTime $updatedAt = null;
 
     public function getId(): ?int
     {
@@ -61,21 +64,24 @@ class Picture implements Stringable
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    #[ORM\PrePersist]
+    public function setCreatedAt(): static
     {
-        $this->createdAt = $createdAt;
+        $this->createdAt = new DateTimeImmutable();
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeImmutable
+    public function getUpdatedAt(): ?\DateTime
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
+
+    #[ORM\PreUpdate]
+    public function setUpdatedAt(\DateTime $updatedAt): static
     {
-        $this->updatedAt = $updatedAt;
+        $this->updatedAt = new DateTime();
 
         return $this;
     }
