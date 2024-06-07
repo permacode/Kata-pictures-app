@@ -3,7 +3,7 @@
 namespace App\Controller\User;
 
 use App\Entity\User;
-use App\Traits\UserControllerTrait;
+use App\Trait\UserControllerTrait;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -15,13 +15,13 @@ class ShowUserController extends AbstractController
 {
     use UserControllerTrait;
 
-    #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
-    public function show(User $user): Response
+    #[Route('/', name: 'app_user_show', methods: ['GET'])]
+    public function show(): Response
     {
-        if ($this->isLoggedUser($user)) {
-            return $this->render('user/show.html.twig', [
-                'user' => $user,
-            ]);
-        }
+        /** @var User $user */
+        $user = $this->getUser();
+        return $this->render('user/show.html.twig', [
+            'user' => $user,
+        ]);
     }
 }
