@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Traits;
+namespace App\Trait;
 
 use App\Entity\User;
 use Symfony\Bundle\SecurityBundle\Security;
