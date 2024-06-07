@@ -3,7 +3,6 @@
 namespace App\Controller\User;
 
 use App\Entity\User;
-use App\Trait\UserControllerTrait;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -13,8 +12,6 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[IsGranted('ROLE_USER')]
 class ShowUserController extends AbstractController
 {
-    use UserControllerTrait;
-
     #[Route('/', name: 'app_user_show', methods: ['GET'])]
     public function show(): Response
     {

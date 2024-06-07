@@ -4,7 +4,6 @@ namespace App\Controller\User;
 
 use App\Entity\User;
 use App\Form\UserType;
-use App\Trait\UserControllerTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,8 +15,6 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[IsGranted('ROLE_USER')]
 class EditUserController extends AbstractController
 {
-    use UserControllerTrait;
-
     #[Route('/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, EntityManagerInterface $entityManager): Response
     {
