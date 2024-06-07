@@ -33,7 +33,6 @@ class AddPictureController extends AbstractPictureController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // TODO: Add a mail to warn user
             $this->sendMailWhenPictureAdded($user, $picture);
 
             return $this->redirectToRoute('app_user_show', [], Response::HTTP_SEE_OTHER);
