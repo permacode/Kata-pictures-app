@@ -79,7 +79,7 @@ class Picture implements Stringable
 
 
     #[ORM\PreUpdate]
-    public function setUpdatedAt(\DateTime $updatedAt): static
+    public function setUpdatedAt(): static
     {
         $this->updatedAt = new DateTime();
 

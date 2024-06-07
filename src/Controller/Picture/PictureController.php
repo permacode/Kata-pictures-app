@@ -57,6 +57,8 @@ class PictureController extends AbstractController
         return $this->render('picture/show.html.twig', [
             'picture' => $picture,
             'user' => $user,
+            'createdAt' => $picture->getCreatedAt()->format('d-m-Y H:i'),
+            'updatedAt' => $picture->getUpdatedAt()->format('d-m-Y H:i')
         ]);
     }
 
@@ -71,7 +73,7 @@ class PictureController extends AbstractController
             //TODO: add a request to ChatGPT
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_picture_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_user_show', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('picture/edit.html.twig', [
