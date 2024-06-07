@@ -3,40 +3,49 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-    <form method="post">
-        {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
+    <div class="flex items-center justify-center h-screen bg-gray-100">
+        <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+            {% if error %}
+                <div class="bg-red-100 text-red-700 p-3 rounded mb-4">
+                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                </div>
+            {% endif %}
 
-        {% if app.user %}
-            <div class="mb-3">
-                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
-            </div>
-        {% endif %}
+            {% if app.user %}
+                <div class="mb-3 text-center">
+                    Vous êtes connecté en tant que <strong>{{ app.user.userIdentifier }}</strong>, <a href="{{ path('app_logout') }}" class="text-blue-500 hover:underline">Déconnexion</a>
+                </div>
+            {% endif %}
 
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-        <label for="username">Email</label>
-        <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
-        <label for="password">Password</label>
-        <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
+            <h1 class="text-3xl font-bold mb-6 text-center">Connexion</h1>
+            <form method="post">
+                <div class="mb-4">
+                    <label for="username" class="block text-gray-700">Email</label>
+                    <input type="email" value="{{ last_username }}" name="_username" id="username" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" autocomplete="email" required autofocus>
+                </div>
+                <div class="mb-4">
+                    <label for="password" class="block text-gray-700">Mot de passe</label>
+                    <input type="password" name="_password" id="password" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" autocomplete="current-password" required>
+                </div>
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-        <input type="hidden" name="_csrf_token"
-               value="{{ csrf_token('authenticate') }}"
-        >
+                {# 
+                    Décommentez cette section et ajoutez une option remember_me sous votre firewall pour activer la fonctionnalité "Se souvenir de moi".
+                    Voir https://symfony.com/doc/current/security/remember_me.html 
+                #}
+                {# 
+                <div class="mb-4">
+                    <label class="inline-flex items-center">
+                        <input type="checkbox" name="_remember_me" class="form-checkbox">
+                        <span class="ml-2 text-gray-700">Se souvenir de moi</span>
+                    </label>
+                </div>
+                #}
 
-        {#
-            Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-            See https://symfony.com/doc/current/security/remember_me.html
-
-            <div class="checkbox mb-3">
-                <label>
-                    <input type="checkbox" name="_remember_me"> Remember me
-                </label>
-            </div>
-        #}
-
-        <button class="btn btn-lg btn-primary" type="submit">
-            Sign in
-        </button>
-    </form>
+                <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    Connexion
+                </button>
+            </form>
+        </div>
+    </div>
 {% endblock %}
