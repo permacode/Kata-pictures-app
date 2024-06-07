@@ -54,6 +54,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Stringa
     #[ORM\Column]
     private bool $isVerified = false;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $token = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $tokenExpireAt = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -199,5 +205,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Stringa
     public function __toString(): string
     {
         return $this->firstname . ' ' . $this->lastname;
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(?string $token): static
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
+    public function getTokenExpireAt(): ?int
+    {
+        return $this->tokenExpireAt;
+    }
+
+    public function setTokenExpireAt(?int $tokenExpireAt): static
+    {
+        $this->tokenExpireAt = $tokenExpireAt;
+
+        return $this;
     }
 }
